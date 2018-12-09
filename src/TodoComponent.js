@@ -32,11 +32,22 @@ class TodoComponent extends React.Component {
             current: ''
         });
     }
+    changeTask = (id) => {
+        this.setState({
+            data: this.state.data.map((element) => {
+                const item = element;
+                if (item.id === id) {
+                    item.status = !item.status;
+                }
+                return item;
+            })
+        })
+    }
     render() {
         const tasks = this.state.data.map((item) => {
             const itemClass = item.status === true ? 'done' : null;
             return (
-                <li key={item.id} className={itemClass}>{item.title}</li>
+                <li key={item.id} className={itemClass} onClick={this.changeTask.bind(null, item.id)}>{item.title}</li>
             )
         })
         return (
